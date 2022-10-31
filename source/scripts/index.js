@@ -192,8 +192,6 @@ export default class CarallaxController {
   }
 
   getScrollPercentages() {
-    // time this function to see how long it takes
-    // console.time('getScrollPercentages');
     this.calculations = {};
 
     const from = this.canvas.pageYOffset - window.innerHeight;
@@ -203,11 +201,6 @@ export default class CarallaxController {
       this.calculations[index] = this.calculateScrollPercent(index);
       this.withEachLayer((Layer) => Layer.parallax(this.calculations[index]));
     }
-
-    console.log(this.calculations);
-
-    // time this function to see how long it takes
-    // console.timeEnd('getScrollPercentages');
   }
 
   getScrollPercent() {
@@ -216,7 +209,6 @@ export default class CarallaxController {
 
     // If we have a cached value, return that, otherwise calculate it
     if (!this.calculations[offset]) {
-      console.log('calculating', offset);
       this.calculations[offset] = this.calculateScrollPercent(offset);
     }
 

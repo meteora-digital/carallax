@@ -212,8 +212,6 @@ var CarallaxController = /*#__PURE__*/function () {
     value: function getScrollPercentages() {
       var _this3 = this;
 
-      // time this function to see how long it takes
-      // console.time('getScrollPercentages');
       this.calculations = {};
       var from = this.canvas.pageYOffset - window.innerHeight;
       var to = from + this.canvas.element.clientHeight + window.innerHeight;
@@ -229,9 +227,6 @@ var CarallaxController = /*#__PURE__*/function () {
       for (var index = from; index < to; index++) {
         _loop(index);
       }
-
-      console.log(this.calculations); // time this function to see how long it takes
-      // console.timeEnd('getScrollPercentages');
     }
   }, {
     key: "getScrollPercent",
@@ -240,7 +235,6 @@ var CarallaxController = /*#__PURE__*/function () {
       var offset = Math.round(window.pageYOffset); // If we have a cached value, return that, otherwise calculate it
 
       if (!this.calculations[offset]) {
-        console.log('calculating', offset);
         this.calculations[offset] = this.calculateScrollPercent(offset);
       }
 
