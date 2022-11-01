@@ -15,11 +15,10 @@
   ],
   "author": "Emmanuel Davies",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
-    "gulp": "^4.0.2",
+    "gulp": "^3.9.1",
     "gulp-babel": "^8.0.0",
     "gulp-plumber": "^1.2.1"
   },
