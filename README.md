@@ -61,12 +61,12 @@ banner.appendChild(Carallax.static);
 | Option | Type | Description | Default |
 |--------|------|-------------|---------|
 | `depth` | `number` | The depth of the parallax effect. | `50` |
-| `alignment` | `string` | The alignment of the parallax effect. Can be `top`, `center` or `bottom`. | `bottom` |
+| `alignment` | `string` | The alignment of the parallax effect. Can be `top`, `center` or `bottom`. | `center` |
 | `throttle` | `number` | The resize calculations throttle time in milliseconds. | `100` |
 
 ## Note:
 
-Currently Firefox struggles to call the canvas `drawImage` method repeatedly. This causes the parallax effect to stutter on larger images / displays. To remedy this I have halved the dpr on Firefox. The "static" layer will render full resolution. While the parallax layers will render at half resolution. This is a temporary fix until I can find a better solution or Firefox fixes the issue. If you have any ideas please let me know.
+Currently Firefox struggles to call the canvas `drawImage` method repeatedly. This causes the parallax effect to stutter on larger images / displays. To remedy this I have halved the dpr on Firefox. The "static" layer will render full resolution, while the parallax layers will render at half resolution. This is a temporary fix until I can find a better solution or Firefox fixes the issue. If you have any ideas please let me know.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
