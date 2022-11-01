@@ -112,9 +112,9 @@ export default class CarallaxController {
       clearTimeout(this.timeouts['loaded']);
       this.timeouts['loaded'] = setTimeout(() => {
         // if the canvas.element does not have loaded class
-        if (!this.canvas.element.classList.contains('parallax-canvas--loaded')) {
+        if (!this.canvas.element.classList.contains('carallax--loaded')) {
           // Add the loaded class to the canvas.element
-          this.canvas.element.classList.add('parallax-canvas--loaded');
+          this.canvas.element.classList.add('carallax--loaded');
         }
       }, 100);
 

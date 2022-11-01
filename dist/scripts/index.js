@@ -126,9 +126,9 @@ var CarallaxController = /*#__PURE__*/function () {
         clearTimeout(_this2.timeouts['loaded']);
         _this2.timeouts['loaded'] = setTimeout(function () {
           // if the canvas.element does not have loaded class
-          if (!_this2.canvas.element.classList.contains('parallax-canvas--loaded')) {
+          if (!_this2.canvas.element.classList.contains('carallax--loaded')) {
             // Add the loaded class to the canvas.element
-            _this2.canvas.element.classList.add('parallax-canvas--loaded');
+            _this2.canvas.element.classList.add('carallax--loaded');
           }
         }, 100);
 
