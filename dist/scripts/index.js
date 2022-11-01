@@ -62,7 +62,8 @@ var CarallaxController = /*#__PURE__*/function () {
     this.settings = {
       throttle: 100,
       depth: 50,
-      alignment: 'center'
+      alignment: 'center',
+      firefoxDPR: 0
     };
 
     // Object assign the user settings
@@ -70,6 +71,15 @@ var CarallaxController = /*#__PURE__*/function () {
       if (Object.hasOwnProperty.call(this.settings, key)) {
         if (options[key]) this.settings[key] = options[key];
       }
+    }
+
+    // Hack for firefox to reduce the DPR and improve performance / reduce stuttering
+    if (!isNaN(this.settings.firefoxDPR) && this.settings.firefoxDPR > 0 && navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+      this.settings.firefoxDPR = Math.max(this.dpr, this.settings.firefoxDPR);
+      this.canvas.dpr = this.settings.firefoxDPR;
+      this.buffer.dpr = this.settings.firefoxDPR;
+      this.canvas.resize();
+      this.buffer.resize();
     }
 
     // Observe the canvas element
@@ -423,9 +433,6 @@ var Canvas = /*#__PURE__*/function () {
     this.dpr = window.devicePixelRatio || 1;
     // The page offset
     this.pageYOffset = 0;
-    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-      this.dpr = this.dpr * .5;
-    }
   }
 
   // Resize the buffer canvas
