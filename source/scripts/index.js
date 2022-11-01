@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------
-Perspective Parallax
+Carallax
 ------------------------------------------------------------------*/
 
 /* ██████╗  █████╗ ██████╗  █████╗ ██╗     ██╗      █████╗ ██╗  ██╗
@@ -66,7 +66,7 @@ export default class CarallaxController {
     this.ResizeObserver.observe(this.canvas.element);
 
     // Set a classname for the static layer
-    this.static.className = 'parallax-canvas--static';
+    this.static.className = 'carallax-img';
 
     // Keep track of everything going on
     this.status = {
