@@ -11,23 +11,10 @@ Carallax
 
 export default class CarallaxController {
   constructor(options = {}) {
-    // The parallax settings
-    this.settings = {
-      throttle: 100,
-      depth: 50,
-      alignment: 'center',
-      firefoxDPR: window.devicePixelRatio || 1,
-    }
-
-    // Object assign the user settings
-    for (const key in this.settings) {
-      if (Object.hasOwnProperty.call(this.settings, key) && options[key]) this.settings[key] = options[key];
-    }
-
     // Create a new buffer canvas
-    this.canvas = new Canvas(this.settings);
+    this.canvas = new Canvas;
     // Create a new buffer canvas
-    this.buffer = new Canvas(this.settings);
+    this.buffer = new Canvas;
     // The static layer
     this.static = new Image();
     // The layers in the canvas
@@ -58,6 +45,20 @@ export default class CarallaxController {
     });
 
     this.IntersectionObserver.observe(this.canvas.element);
+
+    // The parallax settings
+    this.settings = {
+      throttle: 100,
+      depth: 50,
+      alignment: 'center',
+    }
+
+    // Object assign the user settings
+    for (const key in this.settings) {
+      if (Object.hasOwnProperty.call(this.settings, key)) {
+        if (options[key]) this.settings[key] = options[key];
+      }
+    }
 
     // Observe the canvas element
     this.ResizeObserver.observe(this.canvas.element);
@@ -373,7 +374,7 @@ class ParallaxLayer {
    ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝ */
 
 class Canvas {
-  constructor(options = {}) {
+  constructor() {
     // Create a new canvas element
     this.element = document.createElement('canvas');
     // The canvas context
@@ -383,15 +384,8 @@ class Canvas {
     // The page offset
     this.pageYOffset = 0;
 
-    this.settings = { firefoxDPR: window.devicePixelRatio || 1 };
-
-    for (const key in this.settings) {
-      if (Object.hasOwnProperty.call(this.settings, key) && options[key]) this.settings[key] = options[key];
-    }
-
     if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-      // Min of 0 and max of window.devicePixelRatio || 1;
-      this.dpr = Math.min(Math.max(this.settings.firefoxDPR, 0), this.dpr);
+      this.dpr = this.dpr * .5;
     }
   }
 

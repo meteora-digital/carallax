@@ -21,23 +21,10 @@ var CarallaxController = /*#__PURE__*/function () {
     var _this = this;
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     _classCallCheck(this, CarallaxController);
-    // The parallax settings
-    this.settings = {
-      throttle: 100,
-      depth: 50,
-      alignment: 'center',
-      firefoxDPR: window.devicePixelRatio || 1
-    };
-
-    // Object assign the user settings
-    for (var key in this.settings) {
-      if (Object.hasOwnProperty.call(this.settings, key) && options[key]) this.settings[key] = options[key];
-    }
-
     // Create a new buffer canvas
-    this.canvas = new Canvas(this.settings);
+    this.canvas = new Canvas();
     // Create a new buffer canvas
-    this.buffer = new Canvas(this.settings);
+    this.buffer = new Canvas();
     // The static layer
     this["static"] = new Image();
     // The layers in the canvas
@@ -68,6 +55,20 @@ var CarallaxController = /*#__PURE__*/function () {
       });
     });
     this.IntersectionObserver.observe(this.canvas.element);
+
+    // The parallax settings
+    this.settings = {
+      throttle: 100,
+      depth: 50,
+      alignment: 'center'
+    };
+
+    // Object assign the user settings
+    for (var key in this.settings) {
+      if (Object.hasOwnProperty.call(this.settings, key)) {
+        if (options[key]) this.settings[key] = options[key];
+      }
+    }
 
     // Observe the canvas element
     this.ResizeObserver.observe(this.canvas.element);
@@ -411,7 +412,6 @@ var ParallaxLayer = /*#__PURE__*/function () {
    ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝ */
 var Canvas = /*#__PURE__*/function () {
   function Canvas() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     _classCallCheck(this, Canvas);
     // Create a new canvas element
     this.element = document.createElement('canvas');
@@ -421,15 +421,8 @@ var Canvas = /*#__PURE__*/function () {
     this.dpr = window.devicePixelRatio || 1;
     // The page offset
     this.pageYOffset = 0;
-    this.settings = {
-      firefoxDPR: window.devicePixelRatio || 1
-    };
-    for (var key in this.settings) {
-      if (Object.hasOwnProperty.call(this.settings, key) && options[key]) this.settings[key] = options[key];
-    }
     if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-      // Min of 0 and max of window.devicePixelRatio || 1;
-      this.dpr = Math.min(Math.max(this.settings.firefoxDPR, 0), this.dpr);
+      this.dpr = this.dpr * .5;
     }
   }
 
