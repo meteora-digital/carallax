@@ -21,18 +21,29 @@ var CarallaxController = /*#__PURE__*/function () {
     var _this = this;
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     _classCallCheck(this, CarallaxController);
+    // The parallax settings
+    this.settings = {
+      throttle: 100,
+      depth: 50,
+      alignment: 'center',
+      firefoxDPR: window.devicePixelRatio || 1
+    };
+
+    // Object assign the user settings
+    for (var key in this.settings) {
+      if (Object.hasOwnProperty.call(this.settings, key) && options[key]) this.settings[key] = options[key];
+    }
+
     // Create a new buffer canvas
-    this.canvas = new Canvas();
+    this.canvas = new Canvas(this.settings);
     // Create a new buffer canvas
-    this.buffer = new Canvas();
+    this.buffer = new Canvas(this.settings);
     // The static layer
     this["static"] = new Image();
     // The layers in the canvas
     this.layers = {};
     // Some timeouts
     this.timeouts = {};
-    // The maximum dpr
-    this.dpr = window.devicePixelRatio || 1;
     // A store for all our already solved calculations
     this.calculations = {};
 
@@ -57,32 +68,6 @@ var CarallaxController = /*#__PURE__*/function () {
       });
     });
     this.IntersectionObserver.observe(this.canvas.element);
-
-    // The parallax settings
-    this.settings = {
-      throttle: 100,
-      depth: 50,
-      alignment: 'center',
-      firefoxDPR: 0
-    };
-
-    // Object assign the user settings
-    for (var key in this.settings) {
-      if (Object.hasOwnProperty.call(this.settings, key)) {
-        if (options[key]) this.settings[key] = options[key];
-      }
-    }
-
-    // Hack for firefox to reduce the DPR and improve performance / reduce stuttering
-    if (!isNaN(this.settings.firefoxDPR) && this.settings.firefoxDPR > 0 && navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-      // Make sure the user has not set the DPR too high
-      if (this.settings.firefoxDPR > this.dpr) this.settings.firefoxDPR = this.dpr;
-      this.canvas.dpr = this.settings.firefoxDPR;
-      this.buffer.dpr = this.settings.firefoxDPR;
-
-      // this.canvas.resize();
-      // this.buffer.resize();
-    }
 
     // Observe the canvas element
     this.ResizeObserver.observe(this.canvas.element);
@@ -426,6 +411,7 @@ var ParallaxLayer = /*#__PURE__*/function () {
    ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝ */
 var Canvas = /*#__PURE__*/function () {
   function Canvas() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     _classCallCheck(this, Canvas);
     // Create a new canvas element
     this.element = document.createElement('canvas');
@@ -435,6 +421,16 @@ var Canvas = /*#__PURE__*/function () {
     this.dpr = window.devicePixelRatio || 1;
     // The page offset
     this.pageYOffset = 0;
+    this.settings = {
+      firefoxDPR: window.devicePixelRatio || 1
+    };
+    for (var key in this.settings) {
+      if (Object.hasOwnProperty.call(this.settings, key) && options[key]) this.settings[key] = options[key];
+    }
+    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+      // Min of 0 and max of window.devicePixelRatio || 1;
+      this.dpr = Math.min(Math.max(this.settings.firefoxDPR, 0), this.dpr);
+    }
   }
 
   // Resize the buffer canvas
