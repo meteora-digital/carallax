@@ -63,7 +63,7 @@ banner.appendChild(Carallax.static);
 | `depth` | `number` | The depth of the parallax effect. | `50` |
 | `alignment` | `string` | The alignment of the parallax effect. Can be `top`, `center` or `bottom`. | `center` |
 | `throttle` | `number` | The resize calculations throttle time in milliseconds. | `100` |
-| `firefoxDPR ` | `number` | The DPR multiplier value for Firefox. | `0` |
+| `firefoxDPR ` | `number` | The DPR multiplier value for Firefox. `0` will disable this setting. | `0` |
 
 ## Note:
 
