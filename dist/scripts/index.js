@@ -26,7 +26,7 @@ var CarallaxController = /*#__PURE__*/function () {
       throttle: 100,
       depth: 50,
       alignment: 'center',
-      firefoxDPR: 1
+      dpr: window.devicePixelRatio || 1
     };
 
     // Object assign the user settings
@@ -35,9 +35,9 @@ var CarallaxController = /*#__PURE__*/function () {
     }
 
     // Create a new buffer canvas
-    this.canvas = new Canvas(this.settings);
+    this.canvas = new Canvas(this.settings.dpr);
     // Create a new buffer canvas
-    this.buffer = new Canvas(this.settings);
+    this.buffer = new Canvas(this.settings.dpr);
     // The static layer
     this["static"] = new Image();
     // The layers in the canvas
@@ -118,7 +118,7 @@ var CarallaxController = /*#__PURE__*/function () {
         // Tell the status that something is loaded
         _this2.status.loaded = true;
         // Add this layer to the layers object
-        _this2.layers[index] = new ParallaxLayer(image, index);
+        _this2.layers[index] = new ParallaxLayer(image, index, _this2.settings.dpr);
         // Now we need to update some things
         _this2.resize();
         // Enable drawing
@@ -346,7 +346,7 @@ var CarallaxController = /*#__PURE__*/function () {
 }();
 exports["default"] = CarallaxController;
 var ParallaxLayer = /*#__PURE__*/function () {
-  function ParallaxLayer(image, index) {
+  function ParallaxLayer(image, index, dpr) {
     _classCallCheck(this, ParallaxLayer);
     // The actual image element
     this.image = image;
@@ -355,7 +355,7 @@ var ParallaxLayer = /*#__PURE__*/function () {
     // The visual depth of the layer
     this.depth = 0;
     // Create a new buffer canvas
-    this.canvas = new Canvas();
+    this.canvas = new Canvas(dpr);
     // The vertical position of the image
     this.alignment = 0;
     // The perspective position of the layer
@@ -410,27 +410,16 @@ var ParallaxLayer = /*#__PURE__*/function () {
   ╚██████╗██║  ██║██║ ╚████║ ╚████╔╝ ██║  ██║███████║
    ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝ */
 var Canvas = /*#__PURE__*/function () {
-  function Canvas() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  function Canvas(dpr) {
     _classCallCheck(this, Canvas);
     // Create a new canvas element
     this.element = document.createElement('canvas');
     // The canvas context
     this.ctx = this.element.getContext('2d');
     // The devicePixelRatio
-    this.dpr = window.devicePixelRatio || 1;
+    this.dpr = dpr || window.devicePixelRatio || 1;
     // The page offset
     this.pageYOffset = 0;
-    this.settings = {
-      firefoxDPR: 1
-    };
-    for (var key in this.settings) {
-      if (Object.hasOwnProperty.call(this.settings, key) && options[key]) this.settings[key] = options[key];
-    }
-    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-      // Min of 0 and max of window.devicePixelRatio || 1;
-      this.dpr = this.dpr * Math.min(Math.max(this.settings.firefoxDPR, 0), 1);
-    }
   }
 
   // Resize the buffer canvas

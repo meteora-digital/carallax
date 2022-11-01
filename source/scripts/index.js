@@ -16,7 +16,7 @@ export default class CarallaxController {
       throttle: 100,
       depth: 50,
       alignment: 'center',
-      firefoxDPR: 1,
+      dpr: window.devicePixelRatio || 1,
     }
 
     // Object assign the user settings
@@ -25,9 +25,9 @@ export default class CarallaxController {
     }
 
     // Create a new buffer canvas
-    this.canvas = new Canvas(this.settings);
+    this.canvas = new Canvas(this.settings.dpr);
     // Create a new buffer canvas
-    this.buffer = new Canvas(this.settings);
+    this.buffer = new Canvas(this.settings.dpr);
     // The static layer
     this.static = new Image();
     // The layers in the canvas
@@ -103,7 +103,7 @@ export default class CarallaxController {
       // Tell the status that something is loaded
       this.status.loaded = true;
       // Add this layer to the layers object
-      this.layers[index] = new ParallaxLayer(image, index);
+      this.layers[index] = new ParallaxLayer(image, index, this.settings.dpr);
       // Now we need to update some things
       this.resize();
       // Enable drawing
@@ -310,7 +310,7 @@ export default class CarallaxController {
 }
 
 class ParallaxLayer {
-  constructor(image, index) {
+  constructor(image, index, dpr) {
     // The actual image element
     this.image = image;
     // The layer index
@@ -318,7 +318,7 @@ class ParallaxLayer {
     // The visual depth of the layer
     this.depth = 0;
     // Create a new buffer canvas
-    this.canvas = new Canvas;
+    this.canvas = new Canvas(dpr);
     // The vertical position of the image
     this.alignment = 0;
     // The perspective position of the layer
@@ -373,26 +373,15 @@ class ParallaxLayer {
    ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝ */
 
 class Canvas {
-  constructor(options = {}) {
+  constructor(dpr) {
     // Create a new canvas element
     this.element = document.createElement('canvas');
     // The canvas context
     this.ctx = this.element.getContext('2d');
     // The devicePixelRatio
-    this.dpr = window.devicePixelRatio || 1;
+    this.dpr = dpr || window.devicePixelRatio || 1;
     // The page offset
     this.pageYOffset = 0;
-
-    this.settings = { firefoxDPR: 1 };
-
-    for (const key in this.settings) {
-      if (Object.hasOwnProperty.call(this.settings, key) && options[key]) this.settings[key] = options[key];
-    }
-
-    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-      // Min of 0 and max of window.devicePixelRatio || 1;
-      this.dpr = this.dpr * Math.min(Math.max(this.settings.firefoxDPR, 0), 1);
-    }
   }
 
   // Resize the buffer canvas
