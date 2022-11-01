@@ -2,6 +2,10 @@
 
 This class will create a canvas element to draw a layered parallax effect.
 
+## Demo
+
+View on [Codepen](https://codepen.io/meteora-digital/pen/PoaZGyr)
+
 ## Installation
 
 ```bash
@@ -63,7 +67,7 @@ banner.appendChild(Carallax.static);
 | `depth` | `number` | The depth of the parallax effect. | `50` |
 | `alignment` | `string` | The alignment of the parallax effect. Can be `top`, `center` or `bottom`. | `center` |
 | `throttle` | `number` | The resize calculations throttle time in milliseconds. | `100` |
-| `dpr ` | `number` | The device pixed ratio | `window.devicePixelRatio || 1` |
+| `dpr ` | `number` | The device pixed ratio | `window.devicePixelRatio` |
 
 ## Note:
 
