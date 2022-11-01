@@ -71,8 +71,8 @@ export default class CarallaxController {
       this.canvas.dpr = this.settings.firefoxDPR;
       this.buffer.dpr = this.settings.firefoxDPR;
 
-      this.canvas.resize();
-      this.buffer.resize();
+      // this.canvas.resize();
+      // this.buffer.resize();
     }
 
     // Observe the canvas element

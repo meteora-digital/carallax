@@ -79,8 +79,9 @@ var CarallaxController = /*#__PURE__*/function () {
       if (this.settings.firefoxDPR > this.dpr) this.settings.firefoxDPR = this.dpr;
       this.canvas.dpr = this.settings.firefoxDPR;
       this.buffer.dpr = this.settings.firefoxDPR;
-      this.canvas.resize();
-      this.buffer.resize();
+
+      // this.canvas.resize();
+      // this.buffer.resize();
     }
 
     // Observe the canvas element
