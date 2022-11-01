@@ -75,7 +75,8 @@ var CarallaxController = /*#__PURE__*/function () {
 
     // Hack for firefox to reduce the DPR and improve performance / reduce stuttering
     if (!isNaN(this.settings.firefoxDPR) && this.settings.firefoxDPR > 0 && navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-      this.settings.firefoxDPR = Math.max(this.dpr, this.settings.firefoxDPR);
+      // Make sure the user has not set the DPR too high
+      if (this.settings.firefoxDPR > this.dpr) this.settings.firefoxDPR = this.dpr;
       this.canvas.dpr = this.settings.firefoxDPR;
       this.buffer.dpr = this.settings.firefoxDPR;
       this.canvas.resize();
