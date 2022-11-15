@@ -1,6 +1,6 @@
 {
   "name": "carallax",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A class to create a layered parallax utilising html canvas",
   "main": "dist/scripts/index.js",
   "scripts": {
