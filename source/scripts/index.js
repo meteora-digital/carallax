@@ -124,6 +124,7 @@ export default class CarallaxController {
 
         if (Layer.depth == 0) {
           this.static.src = Layer.image.src;
+          this.static.alt = Layer.image.alt || '';
         }
       });
     });

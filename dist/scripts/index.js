@@ -137,6 +137,7 @@ var CarallaxController = /*#__PURE__*/function () {
           Layer.depth = _this2.status.layers - Layer.index;
           if (Layer.depth == 0) {
             _this2["static"].src = Layer.image.src;
+            _this2["static"].alt = Layer.image.alt || '';
           }
         });
       });
