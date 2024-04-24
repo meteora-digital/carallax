@@ -12,8 +12,8 @@ Carallax
 ------------------------------------------------------------------*/
 /* ██████╗  █████╗ ██████╗  █████╗ ██╗     ██╗      █████╗ ██╗  ██╗
    ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║     ██║     ██╔══██╗╚██╗██╔╝
-   ██████╔╝███████║██████╔╝███████║██║     ██║     ███████║ ╚███╔╝ 
-   ██╔═══╝ ██╔══██║██╔══██╗██╔══██║██║     ██║     ██╔══██║ ██╔██╗ 
+   ██████╔╝███████║██████╔╝███████║██║     ██║     ███████║ ╚███╔╝
+   ██╔═══╝ ██╔══██║██╔══██╗██╔══██║██║     ██║     ██╔══██║ ██╔██╗
    ██║     ██║  ██║██║  ██║██║  ██║███████╗███████╗██║  ██║██╔╝ ██╗
    ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ */
 var CarallaxController = /*#__PURE__*/function () {
@@ -26,7 +26,8 @@ var CarallaxController = /*#__PURE__*/function () {
       throttle: 100,
       depth: 50,
       alignment: 'center',
-      dpr: window.devicePixelRatio || 1
+      dpr: window.devicePixelRatio || 1,
+      precision: 5
     };
 
     // Object assign the user settings
@@ -187,7 +188,7 @@ var CarallaxController = /*#__PURE__*/function () {
       var offset = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       var distance = offset + window.innerHeight - this.canvas.pageYOffset;
       var alignment = 0;
-      var decimalPlaces = 2;
+      var decimalPlaces = this.settings.precision;
       switch (this.settings.alignment) {
         case 'top':
           alignment = 0;

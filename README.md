@@ -68,6 +68,7 @@ banner.appendChild(Carallax.static);
 | `alignment` | `string` | The alignment of the parallax effect. Can be `top`, `center` or `bottom`. | `center` |
 | `throttle` | `number` | The resize calculations throttle time in milliseconds. | `100` |
 | `dpr ` | `number` | The device pixed ratio | `window.devicePixelRatio` |
+| `precision` | `number` | The precision of the parallax effect. (I'd suggest keeping this as low as possible, without seeing a stuttering parallax) | `5` |
 
 ## Note:
 
@@ -86,4 +87,3 @@ new CarallaxController({ dpr });
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
-

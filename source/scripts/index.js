@@ -4,8 +4,8 @@ Carallax
 
 /* ██████╗  █████╗ ██████╗  █████╗ ██╗     ██╗      █████╗ ██╗  ██╗
    ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║     ██║     ██╔══██╗╚██╗██╔╝
-   ██████╔╝███████║██████╔╝███████║██║     ██║     ███████║ ╚███╔╝ 
-   ██╔═══╝ ██╔══██║██╔══██╗██╔══██║██║     ██║     ██╔══██║ ██╔██╗ 
+   ██████╔╝███████║██████╔╝███████║██║     ██║     ███████║ ╚███╔╝
+   ██╔═══╝ ██╔══██║██╔══██╗██╔══██║██║     ██║     ██╔══██║ ██╔██╗
    ██║     ██║  ██║██║  ██║██║  ██║███████╗███████╗██║  ██║██╔╝ ██╗
    ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ */
 
@@ -17,6 +17,7 @@ export default class CarallaxController {
       depth: 50,
       alignment: 'center',
       dpr: window.devicePixelRatio || 1,
+      precision: 5
     }
 
     // Object assign the user settings
@@ -169,7 +170,7 @@ export default class CarallaxController {
   calculateScrollPercent(offset = 0) {
     const distance = (offset + window.innerHeight) - (this.canvas.pageYOffset);
     let alignment = 0;
-    let decimalPlaces = 2;
+    let decimalPlaces = this.settings.precision;
 
     switch (this.settings.alignment) {
       case 'top':
